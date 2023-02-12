@@ -72,7 +72,7 @@ export const VideoContextProvider: FC<Props> = ({ children }) => {
         if (!lastUpdate || (lastUpdate < updatedAt)) {
           const newSave: ISaveData = { videos, updatedAt };
 
-          window.localStorage.setItem(SAVE_KEY, JSON.stringify(newSave));
+          localStorage.setItem(SAVE_KEY, JSON.stringify(newSave));
         }
       } catch (err) {
         console.error('Failed to save data');

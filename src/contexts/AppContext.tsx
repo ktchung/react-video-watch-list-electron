@@ -1,4 +1,7 @@
 import { createContext, type FC, type ReactNode, useState, useEffect } from 'react';
+import { setInstanceBaseUrl } from '../api';
+import SetUrlPrompt from '../components/SetUrlPrompt';
+import { API_BASE_URL_KEY } from '../constants/saveConstants';
 
 interface IAppContext {
   showForm: boolean;
@@ -36,6 +39,7 @@ export const AppContextProvider: FC<Props> = ({ children }) => {
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [showRemovePrompt, setShowRemovePrompt] = useState(false);
   const [removingItem, setRemovingItem] = useState<string | null>(null);
+  const [showSetUrlPrompt, setShowSetUrlPrompt] = useState(false);
 
   useEffect(() => {
     if (editingItem) {
@@ -49,6 +53,7 @@ export const AppContextProvider: FC<Props> = ({ children }) => {
     }
   }, [removingItem]);
 
+  /** Return values in context */
   const contextValues = {
     showForm,
     setShowForm,
@@ -62,9 +67,26 @@ export const AppContextProvider: FC<Props> = ({ children }) => {
     setRemovingItem
   };
 
+  /** Base URL setup */
+  useEffect(() => {
+    const storedUrl = localStorage.getItem(API_BASE_URL_KEY);
+
+    if (storedUrl) {
+      // Update axios instance base URL if stored in saved previously
+      setInstanceBaseUrl(storedUrl);
+    } else {
+      // Prompt user to enter base URL
+      setShowSetUrlPrompt(true);
+    }
+  }, []);
+
   return (
     <AppContext.Provider value={contextValues}>
       {children}
+      <SetUrlPrompt
+        open={showSetUrlPrompt}
+        onClose={() => { setShowSetUrlPrompt(false); }}
+      />
     </AppContext.Provider>
   );
 };
