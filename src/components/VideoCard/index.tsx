@@ -30,8 +30,8 @@ const VideoCard: FC<Props> = ({
   };
 
   const onClickUpdateEpNum = (change: 1 | -1) => {
-    if (onUpdateEpNum && id && typeof episode === 'number') {
-      onUpdateEpNum(id, episode + change);
+    if (onUpdateEpNum && id) {
+      onUpdateEpNum(id, Number(episode) + change);
     }
   };
 
