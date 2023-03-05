@@ -1,7 +1,7 @@
 {
   "name": "watch-list",
   "homepage": "https://ktchung.github.io/react-video-watch-list",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -35,7 +35,7 @@
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build -b release",
     "release": "standard-version",
-    "release:dry-run": "standard-version --dry-run"
+    "release:dry": "standard-version --dry-run"
   },
   "eslintConfig": {
     "extends": [
