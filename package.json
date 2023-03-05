@@ -35,7 +35,7 @@
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build -b release",
     "release": "standard-version",
-    "release:dry-run": "standard-version --dry-run"
+    "release:dry": "standard-version --dry-run"
   },
   "eslintConfig": {
     "extends": [
