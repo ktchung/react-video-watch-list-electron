@@ -5,8 +5,8 @@ import VideoCardGrid from '../VideoCardGrid';
 
 interface Props {}
 
-const VideoList: FC<Props> = (props) => {
-  const { videos } = useContext(VideoContext);
+const VideoList: FC<Props> = () => {
+  const { videos, updateVideoEpNum } = useContext(VideoContext);
 
   const {
     isEditing, setEditingItem, setRemovingItem
@@ -18,6 +18,7 @@ const VideoList: FC<Props> = (props) => {
       isEditing={isEditing}
       onSelectEdit={setEditingItem}
       onRemove={setRemovingItem}
+      onUpdateEpNum={updateVideoEpNum}
     />
   );
 };

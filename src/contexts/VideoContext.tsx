@@ -13,6 +13,8 @@ interface IVideoContext {
   getVideo: (videoId: string | null) => IVideo | null;
   editVideo: (video: IVideo) => void;
   removeVideo: (videoId: string) => void;
+
+  updateVideoEpNum: (videoId: string | null, episode: number) => void;
 }
 
 const defaultValues = {
@@ -103,6 +105,14 @@ export const VideoContextProvider: FC<Props> = ({ children }) => {
     setVideos(videos.filter(({ id }) => id !== videoId));
   }, [videos]);
 
+  const updateVideoEpNum = useCallback((videoId: string | null, episode: number) => {
+    const target = getVideo(videoId);
+
+    if (target) {
+      editVideo({ ...target, episode });
+    }
+  }, [videos]);
+
   const contextValues: IVideoContext = {
     videos,
     setVideos,
@@ -110,7 +120,9 @@ export const VideoContextProvider: FC<Props> = ({ children }) => {
     addVideo,
     getVideo,
     editVideo,
-    removeVideo
+    removeVideo,
+
+    updateVideoEpNum
   };
 
   return (

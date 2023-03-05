@@ -8,6 +8,7 @@ interface Props {
   isEditing?: boolean;
   onSelectEdit?: (id: string) => void;
   onRemove?: (id: string) => void;
+  onUpdateEpNum?: (id: string, episode: number) => void;
 }
 
 const VideoCardGrid: FC<Props> = ({

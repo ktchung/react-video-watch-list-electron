@@ -1,8 +1,9 @@
-import { alpha, Box, Card, CardActionArea, CardContent, CardMedia, styled, Typography } from '@mui/material';
+import { alpha, Box, Card, CardActionArea, CardContent, CardMedia, Grid, styled, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/HighlightOff';
 import { type FC, memo, type MouseEvent } from 'react';
 import type IVideo from '../../types/IVideo';
+import EpNumButton from './EpNumButton';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.card,
@@ -17,14 +18,21 @@ interface Props extends IVideo {
   isEditing?: boolean;
   onSelectEdit?: (id: string) => void;
   onRemove?: (id: string) => void;
+  onUpdateEpNum?: (id: string, episode: number) => void;
 }
 
 const VideoCard: FC<Props> = ({
-  id, title, episode, imgUrl, videoUrl, isEditing, onSelectEdit, onRemove
+  id, title, episode, imgUrl, videoUrl, isEditing, onSelectEdit, onRemove, onUpdateEpNum
 }) => {
   const onClickRemove = (e: MouseEvent) => {
     e.stopPropagation();
     onRemove?.(id);
+  };
+
+  const onClickUpdateEpNum = (change: 1 | -1) => {
+    if (onUpdateEpNum && id && typeof episode === 'number') {
+      onUpdateEpNum(id, episode + change);
+    }
   };
 
   return (
@@ -69,6 +77,7 @@ const VideoCard: FC<Props> = ({
             onSelectEdit?.(id);
           }
         }}
+        disableRipple={!isEditing}
       >
         <Box sx={{ width: '100%', height: 250 }}>
           {imgUrl && (
@@ -98,9 +107,18 @@ const VideoCard: FC<Props> = ({
           >
             {title}
           </Typography>
-          <Typography variant="subtitle2" component="div">
-            {`Episode - ${episode ?? 'N/A'}`}
-          </Typography>
+          <Grid container alignItems="center" columnSpacing={1}>
+            <Grid item>
+              <Typography variant="subtitle2" component="div">
+                {`Episode - ${episode ?? 'N/A'}`}
+              </Typography>
+            </Grid>
+            {!isEditing && (
+              <Grid item>
+                <EpNumButton onUpdate={onClickUpdateEpNum} />
+              </Grid>
+            )}
+          </Grid>
         </CardContent>
       </CardActionArea>
     </StyledCard>
