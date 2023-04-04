@@ -15,6 +15,7 @@ interface IVideoContext {
   removeVideo: (videoId: string) => void;
 
   updateVideoEpNum: (videoId: string | null, episode: number) => void;
+  updateIsCompleted: (videoId: string | null, isCompleted: boolean) => void;
 }
 
 const defaultValues = {
@@ -113,6 +114,14 @@ export const VideoContextProvider: FC<Props> = ({ children }) => {
     }
   }, [videos]);
 
+  const updateIsCompleted = useCallback((videoId: string | null, isCompleted: boolean) => {
+    const target = getVideo(videoId);
+
+    if (target) {
+      editVideo({ ...target, isCompleted });
+    }
+  }, [videos]);
+
   const contextValues: IVideoContext = {
     videos,
     setVideos,
@@ -122,7 +131,8 @@ export const VideoContextProvider: FC<Props> = ({ children }) => {
     editVideo,
     removeVideo,
 
-    updateVideoEpNum
+    updateVideoEpNum,
+    updateIsCompleted
   };
 
   return (

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/ktchung/react-video-watch-list/compare/v0.1.0...v0.1.4) (2023-04-04)
+
+
+### Bug Fixes
+
+* episode button update condition ([#7](https://github.com/ktchung/react-video-watch-list/issues/7)) ([46465d7](https://github.com/ktchung/react-video-watch-list/commit/46465d792c2884a1fd3c2c4e9101491dd6ca1f55))
+
+### [0.1.3](https://github.com/ktchung/react-video-watch-list/compare/v0.1.0...v0.1.3) (2023-03-27)
+
+
+### Bug Fixes
+
+* episode button update condition ([#7](https://github.com/ktchung/react-video-watch-list/issues/7)) ([46465d7](https://github.com/ktchung/react-video-watch-list/commit/46465d792c2884a1fd3c2c4e9101491dd6ca1f55))
+
 ### [0.1.2](https://github.com/ktchung/react-video-watch-list/compare/v0.1.1...v0.1.2) (2023-03-05)
 
 
