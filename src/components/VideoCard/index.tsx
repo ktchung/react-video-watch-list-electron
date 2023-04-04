@@ -1,6 +1,7 @@
-import { alpha, Box, Card, CardActionArea, CardContent, CardMedia, Grid, styled, Typography } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
+import { alpha, Box, Card, CardActionArea, CardContent, CardMedia, Grid, IconButton, styled, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/HighlightOff';
+import CheckedIcon from '@mui/icons-material/CheckCircle';
+import UncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { type FC, memo, type MouseEvent } from 'react';
 import type IVideo from '../../types/IVideo';
 import EpNumButton from './EpNumButton';
@@ -19,10 +20,13 @@ interface Props extends IVideo {
   onSelectEdit?: (id: string) => void;
   onRemove?: (id: string) => void;
   onUpdateEpNum?: (id: string, episode: number) => void;
+  onUpdateIsCompleted?: (id: string, isCompleted: boolean) => void;
 }
 
 const VideoCard: FC<Props> = ({
-  id, title, episode, imgUrl, videoUrl, isEditing, onSelectEdit, onRemove, onUpdateEpNum
+  id, title, episode, imgUrl, videoUrl, isCompleted,
+  isEditing, onSelectEdit, onRemove,
+  onUpdateEpNum, onUpdateIsCompleted
 }) => {
   const onClickRemove = (e: MouseEvent) => {
     e.stopPropagation();
@@ -32,6 +36,12 @@ const VideoCard: FC<Props> = ({
   const onClickUpdateEpNum = (change: 1 | -1) => {
     if (onUpdateEpNum && id) {
       onUpdateEpNum(id, Number(episode) + change);
+    }
+  };
+
+  const onClickUpdateIsCompleted = () => {
+    if (onUpdateIsCompleted && id) {
+      onUpdateIsCompleted(id, !isCompleted);
     }
   };
 
@@ -51,6 +61,21 @@ const VideoCard: FC<Props> = ({
       })}
       title={title}
     >
+      <IconButton
+        size="large"
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 2
+        }}
+        onClick={onClickUpdateIsCompleted}
+      >
+        {isCompleted
+          ? <CheckedIcon fontSize="inherit" />
+          : <UncheckedIcon fontSize="inherit" />
+        }
+      </IconButton>
       {isEditing && (
         <IconButton
           size="large"

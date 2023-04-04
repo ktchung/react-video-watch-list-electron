@@ -4,6 +4,7 @@ interface IVideo {
   imgUrl?: string;
   episode?: number;
   videoUrl?: string;
+  isCompleted?: boolean;
 }
 
 export default IVideo;
