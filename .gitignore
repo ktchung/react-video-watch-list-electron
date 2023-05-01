@@ -26,3 +26,7 @@ yarn-error.log*
 
 # ENV file
 .env
+
+# temporary electron js and map files
+/electron/*.js
+/electron/*.map

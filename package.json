@@ -1,6 +1,6 @@
 {
-  "name": "watch-list",
-  "homepage": "https://ktchung.github.io/react-video-watch-list",
+  "name": "watch-list-electron",
+  "homepage": ".",
   "version": "0.1.4",
   "private": true,
   "dependencies": {
@@ -34,10 +34,12 @@
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build -b release",
     "release": "standard-version",
-    "release:dry": "standard-version --dry-run"
+    "release:dry": "standard-version --dry-run",
+    "electron:dev": "concurrently \"yarn dev\" \"wait-on http://localhost:3001 && electron .\"",
+    "electron:tsc": "tsc --p ./electron",
+    "electron:start": "electron:tsc && concurrently \"yarn build && yarn start\" \"wait-on http://localhost:3000 && electron:launch\"",
+    "electron:launch": "electron ./electron/app.js"
   },
   "eslintConfig": {
     "extends": [
@@ -57,11 +59,14 @@
       "last 1 safari version"
     ]
   },
-  "main": "index.js",
+  "main": "electron/main.ts",
   "license": "MIT",
   "devDependencies": {
+    "@types/electron": "^1.6.10",
     "@types/lodash-es": "^4.17.7",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "concurrently": "^8.0.1",
+    "electron": "^24.1.3",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.6.0",
     "eslint-config-standard-with-typescript": "^34.0.0",
@@ -74,6 +79,7 @@
     "nodemon": "^2.0.22",
     "prettier": "^2.8.3",
     "serve": "^14.2.0",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "wait-on": "^7.0.1"
   }
 }
